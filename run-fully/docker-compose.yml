@@ -67,4 +67,4 @@ volumes:
   mongodb_data:
 networks:
   wordpecker-network:
-    driver: overlay
+    driver: bridge
