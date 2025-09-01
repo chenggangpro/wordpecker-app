@@ -2,7 +2,7 @@ FROM node:22-alpine AS builder
 RUN corepack enable
 WORKDIR /app
 COPY ./package.json ./yarn.lock ./
-RUN yarn install --production
+RUN yarn install --production --frozen-lockfile
 COPY . .
 RUN yarn build --mode production
 
