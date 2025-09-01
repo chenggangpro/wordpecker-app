@@ -54,6 +54,8 @@ services:
     environment:
       API_PORTAL: wordpecker-backend:3000
       PROTOCOL: http
+      PORT: 3000
+      NODE_ENV: production
     ports:
       - "80:80"
     volumes:
