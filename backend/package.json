@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node --max-old-space-size=8192 dist/app.js",
+    "start": "node --max-old-space-size=10240 dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "npx --node-options='--max-old-space-size=8192' tsc",
+    "build": "npx --node-options='--max-old-space-size=10240' tsc",
     "lint": "eslint . --ext .ts",
     "test": "jest",
     "seed:templates": "ts-node src/scripts/seedTemplatesFromFiles.ts",
