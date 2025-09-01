@@ -1,21 +1,18 @@
 FROM node:22-alpine AS builder
 
 WORKDIR /app
-COPY ./package.json ./yarn.lock ./tsconfig.json ./
-RUN yarn install --frozen-lockfile
+COPY package*.json ./
+RUN npm install
 COPY . .
-RUN yarn build
+RUN npm run build
 
 FROM node:22-alpine AS runner
 
 RUN apk add --no-cache curl
 WORKDIR /app
 
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/yarn.lock ./yarn.lock
-COPY --from=builder /app/tsconfig.json ./tsconfig.json
-COPY --from=builder /app/dist /app/dist
-RUN export NODE_OPTIONS="--max-old-space-size=4096"
-CMD ["yarn", "start"]
+COPY --from=build /app/package*.json ./
+RUN npm ci --only=production
+COPY --from=build /app/dist ./dist
 EXPOSE 3000
+CMD ["node", "dist/index.js"]
