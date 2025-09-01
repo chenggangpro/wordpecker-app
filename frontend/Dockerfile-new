@@ -4,6 +4,7 @@ WORKDIR /app
 COPY ./package*.json ./yarn.lock ./tsconfig.json ./
 RUN yarn install --production --frozen-lockfile
 COPY . .
+RUN yarn add typescript --production
 RUN yarn build
 
 FROM nginx:1.29-alpine AS runner
